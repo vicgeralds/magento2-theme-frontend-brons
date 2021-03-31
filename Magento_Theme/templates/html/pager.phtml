@@ -1,0 +1,84 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * Pager template
+ *
+ * @see \Magento\Theme\Block\Html\Pager
+ */
+?>
+<?php if ($block->getCollection()->getSize()): ?>
+
+    <?php if ($block->getUseContainer()): ?>
+    <div class="pager">
+    <?php endif ?>
+
+        <?php if ($block->getLastPageNum()>1): ?>
+        <div class="pages">
+            <strong class="label pages-label" id="paging-label"><?= $block->escapeHtml(__('Page')) ?></strong>
+            <ul class="items pages-items" aria-labelledby="paging-label">
+            <?php if (!$block->isFirstPage()): ?>
+                <li class="item pages-item-previous">
+                    <?php $text = __('Previous'); ?>
+                    <a class="action previous"
+                       href="<?= $block->escapeUrl($block->getPreviousPageUrl()) ?>"
+                       title="<?= $block->escapeHtmlAttr($text) ?>">
+                        <span><?= $block->escapeHtml($text) ?></span>
+                    </a>
+                </li>
+            <?php endif;?>
+
+            <?php if ($block->canShowFirst()): ?>
+                <li class="item">
+                    <a class="page first" href="<?= $block->escapeUrl($block->getFirstPageUrl()) ?>">
+                        <span>1</span>
+                    </a>
+                </li>
+            <?php endif;?>
+
+            <?php foreach ($block->getFramePages() as $_page): ?>
+                <?php if ($block->isPageCurrent($_page)): ?>
+                    <li class="item current">
+                        <strong class="page">
+                            <span><?= $block->escapeHtml($_page) ?></span>
+                        </strong>
+                    </li>
+                <?php else: ?>
+                    <li class="item">
+                        <a href="<?= $block->escapeUrl($block->getPageUrl($_page)) ?>" class="page">
+                            <span><?= $block->escapeHtml($_page) ?></span>
+                        </a>
+                    </li>
+                <?php endif;?>
+            <?php endforeach;?>
+
+            <?php if ($block->canShowLast()): ?>
+              <li class="item">
+                  <a class="page last" href="<?= $block->escapeUrl($block->getLastPageUrl()) ?>">
+                      <span><?= $block->escapeHtml($block->getLastPageNum()) ?></span>
+                  </a>
+              </li>
+            <?php endif;?>
+
+            <?php if (!$block->isLastPage()): ?>
+                <li class="item pages-item-next">
+                    <?php $text = __('Next'); ?>
+                    <a class="action next"
+                       href="<?= $block->escapeUrl($block->getNextPageUrl()) ?>"
+                       title="<?= $block->escapeHtmlAttr($text) ?>">
+                        <span><?= $block->escapeHtml($text) ?></span>
+                    </a>
+                </li>
+            <?php endif;?>
+            </ul>
+        </div>
+        <?php endif; ?>
+
+    <?php if ($block->getUseContainer()):?>
+    </div>
+    <?php endif ?>
+
+<?php endif ?>

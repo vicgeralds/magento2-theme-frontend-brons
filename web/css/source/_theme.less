@@ -1,0 +1,110 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Brons theme overrides
+//  _____________________________________________
+
+//  Theme file should contain declarations (overrides) ONLY OF EXISTING variables
+//  Otherwise this theme won't be available for parent nesting
+//  All new variables should be placed in local theme lib or local theme files
+
+@layout__max-width: 1080px;
+
+@theme__color__primary: #744f23;
+@theme__color__primary-alt: #c08339;
+
+@theme__color__secondary: #5d7579;
+
+@active__color: #d76280;
+
+@focus__color: @theme__color__primary-alt;
+
+//
+//  Buttons
+//  ---------------------------------------------
+
+@button__font-weight: @font-weight__semibold;
+@button__border-radius: extract(@button__padding, 1) + @button__line-height / 2;
+
+//  Default = secondary button
+@button__color: @theme__color__primary;
+@button__background: @color-gray-darken0;
+@button__border: 0;
+@button__hover__color: false;
+@button__hover__background: false;
+@button__active__color: false;
+@button__active__background: false;
+
+//  Primary button
+@button-primary__background: @theme__color__secondary;
+@button-primary__border: false;
+@button-primary__hover__background: darken(@theme__color__secondary, 10%);
+@button-primary__hover__border: false;
+@button-primary__hover__color: false;
+@button-primary__active__color: false;
+
+//  Button with icon
+@button-icon__line-height: @icon-font__line-height;
+
+@navigation__background: #fdf9f5;
+@navigation-level0-item__font-size: 18;
+@navigation-level0-item__color: @theme__color__secondary;
+@navigation-level0-item__hover__color: darken(@theme__color__secondary, 10%);
+
+@navigation-level0-item__active__border-color: '';
+@navigation-level0-item__active__border-style: '';
+@navigation-level0-item__active__border-width: '';
+@navigation-level0-item__active__color: @primary__color;
+@submenu-item__active__border: 0;
+@submenu-item__active__border-color: '';
+@submenu-item__active__border-style: '';
+@submenu-item__active__border-width: '';
+@submenu-item__active__color: @primary__color;
+
+@navigation-desktop__background: @color-white;
+@navigation-desktop-level0-item__margin: 0 5px 0 0;
+@navigation-desktop-level0-item__color: @theme__color__secondary;
+@navigation-desktop-level0-item__hover__color: darken(@theme__color__secondary, 10%);
+@navigation-desktop-level0-item__active__border-color: '';
+@navigation-desktop-level0-item__active__border-style: '';
+@navigation-desktop-level0-item__active__border-width: '';
+@navigation-desktop-level0-item__active__color: @primary__color;
+
+@submenu-desktop__background: @navigation__background;
+@submenu-desktop__box-shadow: 0 3px 3px 1px rgba(0,0,0,0.1);
+@submenu-desktop__font-weight: normal;
+@submenu-desktop__min-width: 100%;
+@submenu-desktop-arrow: false;
+@submenu-desktop-item__hover__background: rgba(0,0,0,0.05);
+
+// Messages
+
+@message__border-width: 1px;
+@message__border-color: #ffecb5;
+@message__border-style: solid;
+
+@message-info__background: #fff3cd;
+
+//  Success message
+@message-success__color: false;
+@message-success__background: #fffabf;
+@message-success__border-color: #fff0b1;
+@message-success-icon__color-inner: #aac373;
+@message-success-icon__background: #aac373;
+
+@swatch-option__hover__border: @border-width__base solid transparent;
+@swatch-option__hover__outline: false;
+
+@pager-item__padding: 0 10px;
+@pager__color: false;
+@pager__background: @navigation__background;
+@pager__visited__color: false;
+@pager__hover__color: false;
+@pager__active__color: false;
+@pager-action__color: false;
+@pager-action__border: false;
+@pager-action__background: false;
+@pager-action__visited__color: false;

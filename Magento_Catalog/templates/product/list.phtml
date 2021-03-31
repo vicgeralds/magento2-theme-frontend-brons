@@ -1,0 +1,114 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+use Magento\Framework\App\Action\Action;
+
+?>
+<?php
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+
+/**
+ * Product list template
+ *
+ * @var $block \Magento\Catalog\Block\Product\ListProduct
+ */
+?>
+<?php
+$_productCollection = $block->getLoadedProductCollection();
+$_helper = $this->helper(Magento\Catalog\Helper\Output::class);
+?>
+<?php if (!$_productCollection->count()) :?>
+    <div class="message info empty"><div><?= $block->escapeHtml(__('We can\'t find products matching the selection.')) ?></div></div>
+<?php else :?>
+    <?= $block->getToolbarHtml() ?>
+    <?= $block->getAdditionalHtml() ?>
+    <?php
+    if ($block->getMode() == 'grid') {
+        $viewMode = 'grid';
+        $imageDisplayArea = 'category_page_grid';
+    } else {
+        $viewMode = 'list';
+        $imageDisplayArea = 'category_page_list';
+    }
+    ?>
+    <div class="products wrapper <?= /* @noEscape */ $viewMode ?> products-<?= /* @noEscape */ $viewMode ?>">
+        <ol class="products list items product-items">
+            <?php /** @var $_product \Magento\Catalog\Model\Product */ ?>
+            <?php foreach ($_productCollection as $_product) :?>
+            <li class="item product product-item">
+                <div class="product-item-info" data-container="product-<?= /* @noEscape */ $viewMode ?>">
+                    <?php
+                    $productImage = $block->getImage($_product, $imageDisplayArea);
+                    ?>
+                    <a href="<?= $block->escapeUrl($_product->getProductUrl()) ?>">
+                        <?= $productImage->toHtml() ?>
+                        <strong class="product name product-item-name">
+                            <?= /* @noEscape */ $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
+                        </strong>
+                    </a>
+                    <div class="product details product-item-details">
+                        <?= /* @noEscape */ $block->getProductPrice($_product) ?>
+                        <?php if ($_product->isAvailable()) :?>
+                            <?= $block->getProductDetailsHtml($_product) ?>
+                        <?php endif; ?>
+
+                        <div class="product-item-inner">
+                            <div class="product actions product-item-actions">
+                                <div class="actions-primary">
+                                    <?php if ($_product->isSaleable()) :?>
+                                        <?php if ($_product->getTypeInstance()->hasOptions($_product)) :?>
+                                        <form action="<?= $block->escapeUrl($_product->getProductUrl()) ?>"
+                                              method="get">
+                                            <button type="submit" class="action primary">
+                                                <?= $block->escapeHtml('Välj alternativ') ?>
+                                            </button>
+                                        </form>
+                                        <?php else :?>
+                                        <?php $postParams = $block->getAddToCartPostParams($_product); ?>
+                                        <form data-role="tocart-form"
+                                              data-product-sku="<?= $block->escapeHtmlAttr($_product->getSku()) ?>"
+                                              action="<?= $block->escapeUrl($postParams['action']) ?>"
+                                              method="post">
+                                            <input type="hidden"
+                                                   name="product"
+                                                   value="<?= /* @noEscape */ $postParams['data']['product'] ?>">
+                                            <input type="hidden" name="<?= /* @noEscape */ Action::PARAM_NAME_URL_ENCODED ?>"
+                                                   value="<?= /* @noEscape */ $postParams['data'][Action::PARAM_NAME_URL_ENCODED] ?>">
+                                            <?= $block->getBlockHtml('formkey') ?>
+                                            <button type="submit"
+                                                    class="action tocart primary">
+                                                <?= $block->escapeHtml(__('Add to Cart')) ?>
+                                            </button>
+                                        </form>
+                                        <?php endif; ?>
+                                    <?php else :?>
+                                        <?php if ($_product->isAvailable()) :?>
+                                            <div class="stock available"><span><?= $block->escapeHtml(__('In stock')) ?></span></div>
+                                        <?php else :?>
+                                            <div class="stock unavailable"><span><?= $block->escapeHtml(__('Out of stock')) ?></span></div>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            <?php endforeach; ?>
+        </ol>
+    </div>
+    <?= $block->getToolbarHtml() ?>
+    <?php if (!$block->isRedirectToCartEnabled()) :?>
+        <script type="text/x-magento-init">
+        {
+            "[data-role=tocart-form], .form.map.checkout": {
+                "catalogAddToCart": {
+                    "product_sku": "<?= $block->escapeJs($_product->getSku()) ?>"
+                }
+            }
+        }
+        </script>
+    <?php endif; ?>
+<?php endif; ?>

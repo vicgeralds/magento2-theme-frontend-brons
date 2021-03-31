@@ -1,0 +1,76 @@
+<!--
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+-->
+<li class="item product product-item" data-role="product-item">
+    <div class="product">
+        <!-- ko if: product_has_url -->
+        <a data-bind="attr: {href: product_url, title: product_name}" tabindex="-1" class="product-item-photo">
+            <!-- ko foreach: $parent.getRegion('itemImage') -->
+                <!-- ko template: {name: getTemplate(), data: item.product_image} --><!-- /ko -->
+            <!-- /ko -->
+        </a>
+        <!-- /ko -->
+        <!-- ko ifnot: product_has_url -->
+        <span class="product-item-photo">
+            <!-- ko foreach: $parent.getRegion('itemImage') -->
+                <!-- ko template: {name: getTemplate(), data: item.product_image} --><!-- /ko -->
+            <!-- /ko -->
+        </span>
+        <!-- /ko -->
+
+        <div class="product-item-details">
+            <div>
+            <strong class="product-item-name">
+                <!-- ko if: product_has_url -->
+                <a data-bind="attr: {href: product_url}, html: product_name"></a>
+                <!-- /ko -->
+                <!-- ko ifnot: product_has_url -->
+                    <!-- ko text: product_name --><!-- /ko -->
+                <!-- /ko -->
+            </strong>
+
+            <!-- ko if: options.length -->
+                <ul class="product options list">
+                    <!-- ko foreach: { data: options, as: 'option' } -->
+                    <li class="values" data-bind="attr: {title: option.label}">
+                        <span data-bind="text: option.value"></span>
+                    </li>
+                    <!-- /ko -->
+                </ul>
+            <!-- /ko -->
+            </div>
+
+            <div class="product-item-pricing">
+                <!-- ko foreach: $parent.getRegion('priceSidebar') -->
+                    <!-- ko template: {name: getTemplate(), data: item.getPrice(), as: 'price'} --><!-- /ko -->
+                <!-- /ko -->
+            </div>
+
+            <div class="product-item-actions">
+            <div class="details-qty qty">
+                <label class="label" data-bind="i18n: 'Qty', attr: {
+                       for: 'cart-item-'+item_id+'-qty'}"></label>
+                <button class="action decrease" data-bind="attr: { disabled: qty() <= 1 }">-</button>
+                <input data-bind="attr: {
+                       id: 'cart-item-'+item_id+'-qty', disabled: qty() === 0
+                       }, value: qty"
+                       type="number"
+                       min="1"
+                       class="item-qty cart-item-qty">
+                <button class="action increase" data-bind="attr: { disabled: qty() === 0 }">+</button>
+            </div>
+
+            <button data-bind="attr: {title: $t('Remove item')}"
+               class="action delete">
+                <span data-bind="i18n: 'Remove'"></span>
+            </button>
+        </div>
+        </div>
+    </div>
+    <div class="message notice" if="$data.message">
+        <div data-bind="text: $data.message"></div>
+    </div>
+</li>

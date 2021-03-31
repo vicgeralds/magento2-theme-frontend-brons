@@ -1,0 +1,44 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+
+    //
+    //  Shopping cart
+    //  ---------------------------------------------
+
+    //  Summary block
+    .cart-summary {
+        > .title,
+        .block.shipping,
+        .totals-tax {
+            display: none;
+        }
+    }
+
+    //  Totals block
+    .cart-totals {
+        max-width: 540px;
+        margin: 0 auto;
+
+        th {
+            font-weight: normal;
+        }
+
+        .actions {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+    }
+
+    .cart-empty {
+        text-align: center;
+    }
+}

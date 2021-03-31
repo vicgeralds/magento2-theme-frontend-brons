@@ -1,0 +1,213 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Theme variables
+//  _____________________________________________
+
+//  Header
+@header__background-color: #f5f1e8;
+@header-icons-color: @theme__color__secondary;
+@header-icons-color-hover: @color-gray20;
+
+@addto-color: @text__color__muted;
+@addto-hover-color: @primary__color;
+
+@minicart-icons-color: @header-icons-color;
+@minicart-icons-color-hover: @header-icons-color-hover;
+
+@button__shadow: inset 0 2px 1px rgba(0,0,0,.12);
+
+@h1__margin-bottom__desktop: @indent__xl;
+
+//  Footer
+@footer__background-color: @theme__color__primary;
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+
+    body {
+        .lib-css(background-color, @page__background-color);
+    }
+
+    .page-wrapper {
+        .lib-vendor-prefix-display(flex);
+        .lib-vendor-prefix-flex-direction(column);
+        min-height: 100vh; // Stretch content area for sticky footer
+    }
+
+    .page-main {
+        .lib-vendor-prefix-flex-grow(1);
+    }
+
+    //
+    //  Header
+    //  ---------------------------------------------
+
+    .page-header {
+        .lib-css(background-color, @header__background-color);
+        margin-bottom: @indent__base;
+    }
+
+    .header {
+        &.content {
+            &:extend(.abs-add-clearfix all);
+            padding-top: @indent__s;
+            position: relative;
+            z-index: 2;
+        }
+    }
+
+    .logo {
+        float: left;
+        margin: 0 0 @indent__s @indent__xl;
+
+        img {
+            display: block;
+            height: auto;
+        }
+
+        .page-print & {
+            float: none;
+        }
+    }
+
+    .action.skip {
+        &:not(:focus) {
+            &:extend(.abs-visually-hidden all);
+        }
+
+        &:focus {
+            .lib-css(background, @color-gray94);
+            .lib-css(padding, @indent__s);
+            box-sizing: border-box;
+            left: 0;
+            position: absolute;
+            text-align: center;
+            top: 0;
+            width: 100%;
+            z-index: 15;
+        }
+    }
+
+    .action-skip-wrapper {
+        height: 0;
+        position: relative;
+    }
+
+    //
+    //  Footer
+    //  ---------------------------------------------
+
+    .page-footer {
+        .lib-css(background-color, @footer__background-color);
+        margin-top: auto;
+    }
+
+    .footer {
+        &.content {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-around;
+            padding-bottom: 25px;
+            padding-top: 25px;
+            color: @color-white;
+
+            a {
+                color: @color-white;
+            }
+
+            ul {
+                &:extend(.abs-reset-list all);
+            }
+
+            .links {
+                > li {
+                    margin: 0 0 8px;
+                }
+            }
+        }
+
+        .copyright {
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+            text-align: center;
+        }
+    }
+
+    //
+    //  Widgets
+    //  ---------------------------------------------
+
+    .sidebar {
+        .widget.block:not(:last-child),
+        .widget:not(:last-child) {
+            &:extend(.abs-margin-for-blocks-and-widgets all);
+        }
+    }
+
+    .widget {
+        clear: both;
+
+        .block-title {
+            &:extend(.abs-block-title all);
+        }
+    }
+
+    .no-display {
+        &:extend(.abs-no-display all);
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .page-wrapper {
+        > .breadcrumbs,
+        > .top-container,
+        > .widget {
+            box-sizing: border-box;
+            width: 100%;
+        }
+    }
+
+    .navigation ul {
+        padding: 0 8px;
+    }
+
+    .header {
+        &.panel {
+            padding: 0;
+        }
+
+        &.content {
+            &:extend(.abs-add-clearfix-desktop all);
+            padding: @indent__l @indent__base 0;
+        }
+    }
+
+    .page-header {
+        border: 0;
+        margin-bottom: 0;
+    }
+
+    .logo {
+        margin: -8px auto 25px 0;
+        position: relative;
+        left: 5%;
+        height: 110px;
+
+        img {
+            margin: 0;
+            min-width: 110px;
+        }
+    }
+}

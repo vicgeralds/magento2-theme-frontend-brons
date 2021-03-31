@@ -1,0 +1,60 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Variables
+//  _____________________________________________
+
+@checkout-wrapper__margin: @indent__base;
+@checkout-wrapper__columns: 8;
+
+@checkout-step-title__border: @border-width__base solid @color-gray80;
+@checkout-step-title__font-size: 26px;
+@checkout-step-title__font-weight: @font-weight__light;
+@checkout-step-title__padding: @indent__s;
+
+@checkout-step-title-mobile__font-size: 18px;
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+
+    .loading-mask > .loader > img {
+        width: 32px;
+    }
+
+    .opc-wrapper {
+        .opc {
+            &:extend(.abs-reset-list all);
+        }
+    }
+
+    .checkout-klarna-index {
+        .page-header {
+            margin-bottom: @indent__base;
+        }
+
+        .nav-toggle {
+            display: none;
+        }
+    }
+
+    .checkout-success {
+        max-width: 610px;
+        margin: 0 auto;
+        padding: 0 15px;
+
+        .actions-toolbar {
+            margin-top: 2.2rem;
+            text-align: center;
+
+            .primary {
+                float: none;
+            }
+        }
+    }
+}

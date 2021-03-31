@@ -1,0 +1,31 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/** @var $block \Magento\Swatches\Block\Product\Renderer\Configurable */
+$_product    = $block->getProduct();
+$_attributes = $block->decorateArray($block->getAllowAttributes());
+
+if ($_product->isSaleable() && count($_attributes)) :
+    foreach ($_attributes as $_attribute) : ?>
+        <div class="field configurable" data-id="<?= $block->escapeHtmlAttr($_attribute->getAttributeId()) ?>">
+            <label class="label">
+                <?= $block->escapeHtml($_attribute->getProductAttribute()->getStoreLabel()) ?>
+            </label>
+            <div class="control"></div>
+        </div>
+    <?php endforeach; ?>
+    <script type="text/x-magento-init">
+        {
+            ".product-options-wrapper > .fieldset": {
+                "Magento_Swatches/js/swatch-renderer": {
+                    "jsonConfig": <?= /* @noEscape */ $swatchOptions = $block->getJsonConfig() ?>,
+                    "jsonSwatchConfig": <?= /* @noEscape */ $swatchOptions = $block->getJsonSwatchConfig() ?>
+                }
+            }
+        }
+    </script>
+<?php endif;?>

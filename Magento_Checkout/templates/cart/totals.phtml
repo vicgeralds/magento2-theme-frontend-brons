@@ -1,0 +1,30 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+?>
+<?php
+/**
+ * Shopping cart totals template
+ * @var $block \Magento\Checkout\Block\Cart\Totals
+ */
+?>
+<div id="cart-totals" class="cart-totals" data-bind="scope:'block-totals'">
+    <!-- ko template: getTemplate() --><!-- /ko -->
+    <div class="actions">
+        <a class="action viewcart" href="#showcart">
+            <?= $block->escapeHtml(__('View and Edit Cart')) ?>
+        </a>
+        <a class="action primary" href="/checkout/">
+            <?= $block->escapeHtml(__('Proceed to Checkout')) ?>
+        </a>
+    </div>
+    <script type="text/x-magento-init">
+            {
+                "#cart-totals": {
+                    "Magento_Ui/js/core/app": <?= /* @noEscape */ $block->getJsLayout() ?>
+                }
+            }
+    </script>
+</div>

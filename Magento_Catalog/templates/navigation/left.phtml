@@ -1,0 +1,35 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * Category left navigation
+ *
+ * @var $block \Magento\Catalog\Block\Navigation
+ */
+?>
+<?php if (!$block->getCategory()) {
+    return;
+} ?>
+<?php $_categories = $block->getCurrentChildCategories() ;?>
+<?php $_count = is_array($_categories) ? count($_categories) : $_categories->count(); ?>
+<?php if ($_count) :?>
+    <div class="leftnav">
+        <h2><?= $block->escapeHtml(__('Categories')) ?></h2>
+        <ul class="items">
+            <?php /** @var \Magento\Catalog\Model\Category $_category */ ?>
+            <?php foreach ($_categories as $_category) :?>
+                <?php if ($_category->getIsActive()) :?>
+                    <li class="item">
+                        <a href="<?= $block->escapeUrl($block->getCategoryUrl($_category)) ?>">
+                            <span class="name"><?= $block->escapeHtml($_category->getName()) ?></span>
+                            <span class="count">(<?= (int)$_category->getProductCount() ?>)</span>
+                        </a>
+                    </li>
+                <?php endif; ?>
+            <?php endforeach ?>
+        </ul>
+    </div>
+<?php endif; ?>

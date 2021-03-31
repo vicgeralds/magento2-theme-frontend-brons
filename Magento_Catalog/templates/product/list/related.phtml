@@ -1,0 +1,36 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+use Magento\Catalog\ViewModel\Product\Listing\PreparePostData;
+use Magento\Framework\App\ActionInterface;
+
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+// phpcs:disable Generic.WhiteSpace.ScopeIndent.Incorrect
+
+/** @var \Magento\Catalog\Block\Product\ProductList\Related $block */
+?>
+<?php if ($block->getItems()->getSize()):?>
+
+<div class="field related">
+    <label class="label" for="related-select">
+        <?= __('Related Products') ?>
+    </label>
+    <select id="related-select" name="related_product" required>
+    <option value=""><?= __('Choose an Option...') ?></option>
+<?php foreach ($block->getItems() as $_item):?>
+    <?php if (!$_item->isComposite() && $_item->isSaleable()):?>
+        <?php if (!$_item->getRequiredOptions()):?>
+            <option
+                data-storlek="<?= $block->escapeHtmlAttr($_item->getData('storlek')) ?>"
+                value="<?= $block->escapeHtmlAttr($_item->getId()) ?>">
+            <?= $block->escapeHtml($_item->getName()) ?>
+            </option>
+        <?php endif; ?>
+    <?php endif; ?>
+<?php endforeach;?>
+</select>
+</div>
+<?php endif;?>

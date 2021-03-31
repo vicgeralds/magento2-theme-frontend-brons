@@ -1,0 +1,30 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    .toolbar-amount {
+        color: @text__color__muted;
+
+        .products.wrapper ~ .toolbar & {
+            display: none;
+        }
+    }
+
+    .toolbar-products {
+        text-align: center;
+
+        .pages {
+            display: none;
+
+            .products.wrapper ~ & {
+                display: block;
+            }
+        }
+    }
+}

@@ -1,0 +1,40 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * @var $block \Magento\Sales\Block\Order\Totals
+ * @see \Magento\Sales\Block\Order\Totals
+ */
+?>
+<?php
+$taxHtml = '';
+foreach ($block->getTotals() as $_code => $_total) : ?>
+    <?php if ($_total->getBlockName() === 'tax') :
+        $taxHtml = $block->getChildHtml($_total->getBlockName(), false);
+    elseif ($_total->getBlockName()) : ?>
+        <?= $block->getChildHtml($_total->getBlockName(), false) ?>
+    <?php else :?>
+    <tr class="<?= $block->escapeHtmlAttr($_code) ?>">
+        <th <?= /* @noEscape */ $block->getLabelProperties() ?> scope="row">
+            <?php if ($_total->getStrong()) : ?>
+                <strong><?= $block->escapeHtml($_total->getLabel()) ?> <?= 
+                    $taxHtml ? $block->escapeHtml(__('Incl. Tax')) : ''
+                    ?></strong>
+            <?php else : ?>
+                <?= $block->escapeHtml($_total->getLabel()) ?>
+            <?php endif ?>
+        </th>
+        <td <?= /* @noEscape */ $block->getValueProperties() ?>>
+            <?php if ($_total->getStrong()) : ?>
+                <strong><?= /* @noEscape */ $block->formatValue($_total) ?></strong>
+            <?php else : ?>
+                <?= /* @noEscape */ $block->formatValue($_total) ?>
+            <?php endif?>
+        </td>
+    </tr>
+    <?php endif; ?>
+<?php endforeach?>
+<?= $taxHtml ?>

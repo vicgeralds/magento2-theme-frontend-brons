@@ -1,0 +1,254 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Variables
+//  ---------------------------------------------
+
+@product-name-link__color: @text__color;
+@product-name-link__color__active: @text__color;
+@product-name-link__color__hover: @text__color;
+@product-name-link__color__visited: @text__color;
+
+@product-name-link__text-decoration: none;
+@product-name-link__text-decoration__active: @link__hover__text-decoration;
+@product-name-link__text-decoration__hover: @link__hover__text-decoration;
+@product-name-link__text-decoration__visited: @link__hover__text-decoration;
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+    //  Product Lists
+    .products {
+        width: 100%;
+        margin: @indent__l 0;
+
+        > .products {
+            margin: 0;
+        }
+    }
+
+    .product {
+        &-items {
+            &:extend(.abs-reset-list all);
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        &-item {
+            vertical-align: top;
+            text-align: center;
+
+            .products-grid & {
+                display: inline-block;
+                margin-left: 15px;
+                padding: 0;
+                width: calc(~'(100% - 15px) / 2');
+                margin-bottom: 30px;
+            }
+
+            &:nth-child(2n + 1) {
+                margin-left: 0;
+            }
+
+            &:extend(.abs-add-box-sizing all);
+
+            &-name {
+                &:extend(.abs-product-link all);
+                -moz-hyphens: auto;
+                -ms-hyphens: auto;
+                -webkit-hyphens: auto;
+                display: block;
+                hyphens: auto;
+                margin: @indent__xs 0;
+                word-wrap: break-word;
+            }
+
+            &-info {
+                max-width: 100%;
+                width: 152px;
+                margin: 0 auto;
+
+                .page-products & {
+                    width: 240px;
+                    display: flex;
+                    flex-direction: column;
+                    height: 100%;
+                    justify-content: space-between;
+                }
+            }
+
+            &-actions {
+                display: flex;
+                justify-content: center;
+
+                .actions-primary {
+                    display: inline-block;
+                    vertical-align: middle;
+                }
+            }
+
+            &-description {
+                margin: @indent__m 0;
+            }
+
+            .price-box {
+                margin: @indent__s 0 @indent__m;
+                font-weight: @font-weight__bold;
+            }
+
+            .price-label,
+            .minimal-price-link {
+                display: none;
+            }
+
+            .normal-price .price-label {
+                display: inline;
+            }
+
+            .tocart {
+                white-space: nowrap;
+            }
+        }
+    }
+
+    .products-list {
+        .product {
+            &-item {
+                display: table;
+                width: 100%;
+
+                &-info {
+                    display: table-row;
+                }
+
+                &-photo {
+                    display: table-cell;
+                    padding: 0 @indent__l @indent__l 0;
+                    vertical-align: top;
+                    width: 1%;
+                }
+
+                &-details {
+                    display: table-cell;
+                    vertical-align: top;
+                }
+            }
+        }
+
+        .product-image-wrapper {
+            &:extend(.abs-reset-image-wrapper all);
+        }
+    }
+}
+
+//
+//  Mobile
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__s) {
+    .products-list .product {
+        &-item {
+            table-layout: fixed;
+
+            &-photo {
+                padding: 0 @indent__s @indent__s 0;
+                width: 30%;
+            }
+        }
+    }
+}
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__s) {
+    .product {
+        &-item {
+            .products-grid & {
+                margin-bottom: @indent__l;
+            }
+
+            &-actions {
+                display: block;
+
+                .products-grid & {
+                    margin: @indent__s 0;
+                }
+
+                .actions-primary + .actions-secondary {
+                    > * {
+                        white-space: normal;
+                    }
+                }
+            }
+        }
+    }
+
+    .products-grid .product-item {
+        width: 100%/3;
+    }
+
+    .page-products {
+        .products-grid {
+            .product-item {
+                margin-left: 2%;
+                padding: 0;
+                width: calc(~'(100% - 4%) / 3');
+
+                &:nth-child(3n + 1) {
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+}
+
+//
+//  Desktop
+//  _____________________________________________
+
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
+    .page-products {
+        .products-grid {
+            .product-item {
+                margin-left: 2%;
+                padding: 0;
+                width: calc(~'(100% - 4%) / 3');
+
+                &:nth-child(3n + 1) {
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+}
+.media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__l) {
+    .products-grid {
+        .product-item {
+            width: 100%/5;
+        }
+    }
+    .page-products {
+        .products-grid {
+            .product-items {
+                margin: 0;
+            }
+
+            .product-item {
+                margin-left: 2%;
+                padding: 0;
+                width: calc(~'(100% - 6%) / 4');
+
+                &:nth-child(3n + 1) {
+                    margin-left: 2%;
+                }
+
+                &:nth-child(4n + 1) {
+                    margin-left: 0;
+                }
+            }
+        }
+    }
+}

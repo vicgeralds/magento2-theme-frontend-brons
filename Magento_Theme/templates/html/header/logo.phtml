@@ -1,0 +1,27 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+/**
+ * @var \Magento\Theme\Block\Html\Header\Logo $block
+ */
+?>
+<div itemscope itemtype="http://schema.org/Brand">
+<a href="#topmenu" data-action="toggle-nav" class="action nav-toggle"><?= $block->escapeHtml(__('Toggle Nav')) ?></a>
+<a
+    class="logo"
+    href="<?= $block->escapeUrl($block->getUrl('')) ?>"
+    id="store-logo"
+    itemprop="url"
+    aria-label="store logo">
+    <img src="<?= $block->escapeUrl($block->getLogoSrc()) ?>"
+         itemprop="logo"
+         alt="<?= $block->escapeHtmlAttr($block->getLogoAlt(), false) ?>"
+            <?= $block->getLogoWidth() ? 'width="' . $block->escapeHtmlAttr($block->getLogoWidth()) . '"' : '' ?>
+            <?= $block->getLogoHeight() ? 'height="' . $block->escapeHtmlAttr($block->getLogoHeight()) . '"' : '' ?>
+    />
+    <meta itemprop="name" content="<?= $block->escapeHtmlAttr($block->getLogoAlt(), false) ?>" />
+</a>
+</div>
