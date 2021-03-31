@@ -36,14 +36,9 @@
 .media-width(@extremum, @break) when (@extremum = 'max') and (@break = @screen__m) {
     .navigation,
     .breadcrumbs,
-    .page-header .header.panel,
     .header.content,
     .footer.content,
-    .page-main,
-    .page-wrapper > .widget,
-    .page-wrapper > .page-bottom,
-    .block.category.event,
-    .top-container {
+    .page-main {
         padding-left: @layout__width-xs-indent;
         padding-right: @layout__width-xs-indent;
     }
@@ -56,13 +51,8 @@
 .media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
     .navigation,
     .breadcrumbs,
-    .page-header .header.panel,
     .header.content,
     .footer.content,
-    .page-wrapper > .widget,
-    .page-wrapper > .page-bottom,
-    .block.category.event,
-    .top-container,
     .page-main {
         box-sizing: border-box;
         margin-left: auto;

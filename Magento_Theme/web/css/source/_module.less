@@ -140,29 +140,6 @@
             text-align: center;
         }
     }
-
-    //
-    //  Widgets
-    //  ---------------------------------------------
-
-    .sidebar {
-        .widget.block:not(:last-child),
-        .widget:not(:last-child) {
-            &:extend(.abs-margin-for-blocks-and-widgets all);
-        }
-    }
-
-    .widget {
-        clear: both;
-
-        .block-title {
-            &:extend(.abs-block-title all);
-        }
-    }
-
-    .no-display {
-        &:extend(.abs-no-display all);
-    }
 }
 
 //
@@ -171,9 +148,7 @@
 
 .media-width(@extremum, @break) when (@extremum = 'min') and (@break = @screen__m) {
     .page-wrapper {
-        > .breadcrumbs,
-        > .top-container,
-        > .widget {
+        > .breadcrumbs {
             box-sizing: border-box;
             width: 100%;
         }
