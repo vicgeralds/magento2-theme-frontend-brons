@@ -182,7 +182,7 @@ define([
     }
 
     function updateItemQty(cartItem) {
-        if (cartItem.isQtyChanged()) {
+        if (cartItem.updatedQty !== 0 && cartItem.isQtyChanged()) {
             var value = cartItem.qty();
             cartItem.updatedQty = value;
             updateItem(cartItem, window.checkout.updateItemQtyUrl, { item_qty: value })
@@ -217,6 +217,7 @@ define([
                 relatedItem.onResponse = cartItem.onResponse;
                 relatedItem.qty(getRelatedQty(relatedItem));
                 if (relatedItem.qty() === 0) {
+                    relatedItem.remove();
                     return post(
                         url,
                         { item_id: relatedItem.item_id },
