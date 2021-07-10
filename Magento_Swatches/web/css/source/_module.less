@@ -1,0 +1,101 @@
+// /**
+//  * Copyright © Magento, Inc. All rights reserved.
+//  * See COPYING.txt for license details.
+//  */
+
+//
+//  Variables
+//  _____________________________________________
+
+@swatch-attribute-option__selected__color: #646464;
+
+@swatch-option__background: @color-gray94;
+@swatch-option__border: @border-width__base solid #dadada;
+
+@swatch-option__hover__border: @border-width__base solid @color-white;
+@swatch-option__hover__color: @color-gray20;
+@swatch-option__hover__outline: 1px solid @color-gray60;
+
+@swatch-option__selected__border: @swatch-option__hover__border;
+@swatch-option__selected__color: @swatch-option__hover__color;
+@swatch-option__selected__outline: 2px solid @active__color;
+
+//  Text attributes
+@swatch-option-text__background: @swatch-option__background;
+@swatch-option-text__color: #686868;
+
+@swatch-option-text__selected__background-color: @color-white;
+
+//  Layered Features
+@swatch-option-link-layered__focus__box-shadow: 0 0 3px 1px @focus__color;
+
+//
+//  Common
+//  _____________________________________________
+
+& when (@media-common = true) {
+
+    .swatch {
+        &-option {
+            .lib-css(border, @swatch-option__border);
+            cursor: pointer;
+            float: left;
+            height: 20px;
+            margin: 0 @indent__s @indent__xs 0;
+            max-width: 100%;
+            min-width: 30px;
+            overflow: hidden;
+            padding: 1px 2px;
+            position: relative;
+            text-align: center;
+            text-overflow: ellipsis;
+
+            &:focus {
+                box-shadow: @focus__box-shadow;
+            }
+
+            &.text {
+                .lib-css(background, @swatch-option-text__background);
+                .lib-css(color, @swatch-option-text__color);
+                font-size: @font-size__s;
+                font-weight: @font-weight__bold;
+                line-height: 20px;
+                margin-right: 7px;
+                min-width: 22px;
+                padding: 4px 8px;
+
+                &.selected {
+                    .lib-css(background-color, @swatch-option-text__selected__background-color) !important;
+                }
+            }
+
+            &.selected {
+                .lib-css(outline, @swatch-option__selected__outline);
+                .lib-css(border, @swatch-option__selected__border);
+                .lib-css(color, @swatch-option__selected__color);
+            }
+
+            &:not(.disabled):hover {
+                .lib-css(border, @swatch-option__hover__border);
+                .lib-css(color, @swatch-option__hover__color);
+                .lib-css(outline, @swatch-option__hover__outline);
+            }
+
+            &.disabled {
+                box-shadow: unset;
+                cursor: default;
+                pointer-events: none;
+            }
+
+            &-link-layered {
+                margin: 0 !important;
+                padding: 0 !important;
+                position: relative;
+
+                &:focus > div {
+                    .lib-css(box-shadow, @swatch-option-link-layered__focus__box-shadow);
+                }
+            }
+        }
+    }
+}
