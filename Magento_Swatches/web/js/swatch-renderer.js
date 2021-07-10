@@ -70,6 +70,11 @@ define([
             this.element.data('rendered', true);
 
             this._sortAttributes();
+            this.products = _.uniq(_.flatten(
+                _.map(this.attributes, function (item) {
+                    return _.map(item.options, 'products');
+                })
+            ));
             this._RenderControls();
             this.options.tierPriceTemplate = $(this.options.tierPriceTemplateSelector).html();
         },
@@ -169,6 +174,7 @@ define([
         _RenderSwatchOptions: function (config) {
             var optionConfig = this.options.jsonSwatchConfig[config.id],
                 optionClass = this.options.classes.optionClass,
+                products = this.products,
                 html = '';
 
             config.options = _.filter(config.options, function (option) {
@@ -180,6 +186,9 @@ define([
 
                 if (!optionConfig.hasOwnProperty(option.id)) {
                     return false;
+                }
+                if (_.intersection(products, option.products).length <= 0) {
+                    return false
                 }
 
                 id = option.id;
@@ -468,11 +477,7 @@ define([
          */
         _CalcProducts: function ($skipAttributeId) {
             var $widget = this,
-                products = _.uniq(_.flatten(
-                    _.map($widget.attributes, function (item) {
-                        return _.map(item.options, 'products');
-                    })
-                ));
+                products = this.products;
 
             // Generate intersection of products
             _.each($widget.attributes, function (item) {
