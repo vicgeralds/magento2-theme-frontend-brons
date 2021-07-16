@@ -1,0 +1,41 @@
+<?php
+/**
+ * Copyright © 2015 Magento. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// @codingStandardsIgnoreFile
+/**
+ * @see \Magento\Paypal\Block\Express\Review\Details
+ * @var \Magento\Paypal\Block\Express\Review\Details $block
+ */
+// svea-checkout_cart id is mandatory (it's used into ajax update blocks part)
+
+?>
+<div id="svea-checkout_cart" class="table-wrapper order-items">
+    <div id="svea_cart_extra">
+        <div id="svea_coupon_toggle">
+            <?php if($block->showCouponCode()): ?>
+
+                <div class="fieldset comment">
+                <input type="checkbox" name="coupon-toggle" value="1" id="coupon-toggle"
+                       title="<?php echo __('Use coupon'); ?>" class="checkbox">
+                <label for="coupon-toggle"><?php echo __('Do you have a coupon code?'); ?>
+                    <span><?= __('Click here to enter code')?> </span></label>
+            </div>
+            <?php endif;?>
+
+        </div>
+        <?php echo $block->getChildHtml('newsletter'); ?>
+    </div>
+    <div id="svea-checkout_cart_totals">
+        <table>
+            <?php echo $block->getChildHtml('totals'); ?>
+        </table>
+    </div>
+    <div class="actions">
+        <a class="action viewcart" href="#showcart">
+            <?= $block->escapeHtml(__('View and Edit Cart')) ?>
+        </a>
+    </div>
+</div>

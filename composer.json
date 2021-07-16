@@ -6,7 +6,8 @@
         "magento/module-catalog": "103.0.*",
         "magento/module-checkout": "100.3.*",
         "magento/module-sales": "102.0.*",
-        "magento/theme-frontend-blank": "100.3.6"
+        "magento/theme-frontend-blank": "100.3.6",
+        "sveawebpay/nwt-magento2-checkout": "^1.2.6"
     },
     "type": "magento2-theme",
     "license": [
