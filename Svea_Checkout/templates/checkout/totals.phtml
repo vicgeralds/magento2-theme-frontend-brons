@@ -1,0 +1,21 @@
+<?php
+
+// @codingStandardsIgnoreFile
+
+/**
+ * @see \Magento\Checkout\Block\Cart\Totals
+ */
+?>
+<?php if ($block->getTotals()):
+    $trTotalsTax = '<tr class="totals-tax">';
+    $totalsParts = explode($trTotalsTax, $block->renderTotals());
+
+    echo $totalsParts[0];
+    echo str_replace(
+        '</th>',
+        ' ' . __('Incl. Tax') .  '</th>',
+        $block->renderTotals('footer')
+    ); 
+    echo $trTotalsTax;
+    echo str_replace('Moms', 'varav moms', $totalsParts[1]);
+endif; ?>
