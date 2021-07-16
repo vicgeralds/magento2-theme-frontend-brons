@@ -13,7 +13,7 @@
     echo $totalsParts[0];
     echo str_replace(
         '</th>',
-        ' ' . __('Incl. Tax') .  '</th>',
+        ' ' . $block->escapeHtml(__('Incl. Tax')) . '</th>',
         $block->renderTotals('footer')
     ); 
     echo $trTotalsTax;

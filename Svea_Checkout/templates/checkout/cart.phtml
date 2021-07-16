@@ -29,13 +29,13 @@
         <?php echo $block->getChildHtml('newsletter'); ?>
     </div>
     <div id="svea-checkout_cart_totals" class="cart-totals">
+        <div class="actions">
+            <a class="action viewcart" href="#showcart">
+                <?= $block->escapeHtml(__('View and Edit Cart')) ?>
+            </a>
+        </div>
         <table class="table-wrapper">
             <?php echo $block->getChildHtml('totals'); ?>
         </table>
-    </div>
-    <div class="actions">
-        <a class="action viewcart" href="#showcart">
-            <?= $block->escapeHtml(__('View and Edit Cart')) ?>
-        </a>
     </div>
 </div>
