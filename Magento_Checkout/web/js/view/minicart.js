@@ -26,6 +26,10 @@ define([
 
             minicart.changedItems.extend({ rateLimit: 1000 }).subscribe(updateItems);
 
+            ko.pureComputed(function () {
+                return minicart.items.filter(isItemToRemove);
+            }).subscribe(updateItems);
+
             customerData.get('messages').subscribe(function () {
                 if (minicartContent.modal('option').isOpen) {
                     clearAddedToCartMessage();
@@ -73,7 +77,13 @@ define([
                     }
 
                     if (location.pathname === '/checkout/cart') {
-                        customerData.reload(['cart'], true);
+                        if (minicart.items.getLength() === 0) {
+                            location.replace('/webbutik');
+                        }
+                        var sections = customerData.getExpiredSectionNames();
+                        if (sections.length) {
+                            customerData.reload(sections, true);
+                        }
                     }
                 });
 
@@ -182,18 +192,20 @@ define([
     }
 
     function updateItemQty(cartItem) {
+        if (isItemToRemove(cartItem)) {
+            cartItem.updatedQty = 0;
+            updateItem(cartItem, window.checkout.removeItemUrl);
+            return;
+        }
         if (cartItem.updatedQty !== 0 && cartItem.isQtyChanged()) {
             var value = cartItem.qty();
             cartItem.updatedQty = value;
-            updateItem(cartItem, window.checkout.updateItemQtyUrl, { item_qty: value })
-                .then(function (response) {
-                    if (response.success && !minicart.items.some(function (item) {
-                        return item.isQtyChanged();
-                    })) {
-                        customerData.reload(['cart'], true);
-                    }
-                });
+            updateItem(cartItem, window.checkout.updateItemQtyUrl, { item_qty: value });
         }
+    }
+
+    function isItemToRemove(item) {
+        return item.qty() === 0 && item.updatedQty !== 0;
     }
 
     function getRelatedQty(relatedItem) {
@@ -218,11 +230,6 @@ define([
                 relatedItem.qty(getRelatedQty(relatedItem));
                 if (relatedItem.qty() === 0) {
                     relatedItem.remove();
-                    return post(
-                        url,
-                        { item_id: relatedItem.item_id },
-                        cartItem.onResponse
-                    );
                 }
             }
             return response;
@@ -255,8 +262,6 @@ define([
 
             if (responseBody.success) {
                 customerData.invalidate(sections);
-            } else {
-                customerData.reload(sections, true);
             }
             return responseBody;
         }, function (error) {
