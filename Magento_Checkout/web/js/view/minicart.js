@@ -76,7 +76,7 @@ define([
                         }
                     }
 
-                    if (location.pathname === '/checkout/cart') {
+                    if (location.pathname === '/checkout/cart' || location.pathname === '/sveacheckout/') {
                         if (minicart.items.getLength() === 0) {
                             location.replace('/webbutik');
                         }

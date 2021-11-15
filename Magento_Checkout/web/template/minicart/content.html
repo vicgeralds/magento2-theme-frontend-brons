@@ -27,10 +27,12 @@
         <if args="summaryCount() || cart.items.getLength()">
             <each args="getRegion('subtotalContainer')" render=""/>
             <each args="getRegion('extraInfo')" render=""/>
-            <a class="action primary checkout" ontouchstart=""
-                data-bind="attr: {href: checkoutUrl}, css: {disabled: !summaryCount()}"
-                translate="'Proceed to Checkout'"
-            />
+            <if args="location.pathname !== '/sveacheckout/'">
+                <a class="action primary checkout" ontouchstart=""
+                    data-bind="attr: {href: checkoutUrl}, css: {disabled: !summaryCount()}"
+                    translate="'Proceed to Checkout'"
+                />
+            </if>
         </if>
         <button class="action close" ontouchstart=""
             translate="'Continue Shopping'"
