@@ -34,7 +34,9 @@
                 />
             </if>
         </if>
-        <button class="action close" ontouchstart=""
-            translate="'Continue Shopping'"
-        />
+        <if args="location.pathname.indexOf('checkout/') === -1 || cart.items.getLength() === 0">
+            <button class="action close" ontouchstart=""
+                translate="'Continue Shopping'"
+            />
+        </if>
     </div>
