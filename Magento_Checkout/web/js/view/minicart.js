@@ -16,6 +16,8 @@ define([
 
     var addToCartCalls = 0;
 
+    var onmodalclosed = null;
+
     return Component.extend({
         checkoutUrl: window.checkout.checkoutUrl,
 
@@ -79,11 +81,15 @@ define([
                     if (location.pathname.indexOf('checkout/') > 0) {
                         if (minicart.items.getLength() === 0) {
                             location.replace('/webbutik');
+                            return;
                         }
                         var sections = customerData.getExpiredSectionNames();
                         if (sections.length) {
                             customerData.reload(sections, true);
                         }
+                    }
+                    if (onmodalclosed) {
+                        onmodalclosed();
                     }
                 });
 
@@ -261,7 +267,15 @@ define([
             onResponse(responseBody);
 
             if (responseBody.success) {
-                customerData.invalidate(sections);
+                if (location.pathname === '/sveacheckout/') {
+                    onmodalclosed = function () {
+                        customerData.invalidate(sections);
+                        $('#review-please-wait').show();
+                        location.reload();
+                    };
+                } else {
+                    customerData.invalidate(sections);
+                }
             }
             return responseBody;
         }, function (error) {
