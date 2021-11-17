@@ -285,14 +285,12 @@ define([
             onResponse(responseBody);
 
             if (responseBody.success) {
+                customerData.invalidate(sections);
                 if (location.pathname === '/sveacheckout/') {
                     onmodalclosed = function () {
-                        customerData.invalidate(sections);
                         $('#review-please-wait').show();
                         location.reload();
                     };
-                } else {
-                    customerData.invalidate(sections);
                 }
             }
             return responseBody;
