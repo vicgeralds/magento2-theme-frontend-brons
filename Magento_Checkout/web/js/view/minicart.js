@@ -107,6 +107,10 @@ define([
                 openModal();
             } else if (location.pathname === '/sveacheckout/') {
                 minicart.load();
+                minicart.changedItems.subscribe(function () {
+                    minicartContent.modal('option').isOpen ||
+                        minicartContent.modal('openModal');
+                });
             }
 
             function openModal() {
