@@ -105,6 +105,8 @@ define([
 
             if (window.location.hash === showcart) {
                 openModal();
+            } else if (location.pathname === '/sveacheckout/') {
+                minicart.load();
             }
 
             function openModal() {
