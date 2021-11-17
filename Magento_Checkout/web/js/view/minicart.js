@@ -202,13 +202,29 @@ define([
     function updateItemQty(cartItem) {
         if (isItemToRemove(cartItem)) {
             cartItem.updatedQty = 0;
-            updateItem(cartItem, window.checkout.removeItemUrl);
+            updateItem(cartItem, window.checkout.removeItemUrl)
+                .then(reloadItems);
             return;
         }
         if (cartItem.updatedQty !== 0 && cartItem.isQtyChanged()) {
             var value = cartItem.qty();
             cartItem.updatedQty = value;
-            updateItem(cartItem, window.checkout.updateItemQtyUrl, { item_qty: value });
+            updateItem(cartItem, window.checkout.updateItemQtyUrl, { item_qty: value })
+                .then(reloadItems);
+        }
+    }
+
+    function reloadItems (response) {
+        if (response.success && minicart.items.getLength() > 0) {
+            if (minicart.items.some(function (item) {
+                return item.isQtyChanged();
+            })) {
+                return;
+            }
+            var sections = customerData.getExpiredSectionNames();
+            if (sections.length) {
+                customerData.reload(sections, true);
+            }
         }
     }
 
