@@ -2,11 +2,11 @@
     "name": "geralds/magento2-theme-frontend-brons",
     "description": "N/A",
     "require": {
-        "php": "~7.3.0",
-        "magento/module-catalog": "103.0.*",
-        "magento/module-checkout": "100.3.*",
-        "magento/module-sales": "102.0.*",
-        "magento/theme-frontend-blank": "100.3.6"
+        "php": "~7.3.0||~7.4.0",
+        "magento/module-catalog": "104.0.*",
+        "magento/module-checkout": "100.4.*",
+        "magento/module-sales": "103.0.*",
+        "magento/theme-frontend-blank": "100.4.*"
     },
     "type": "magento2-theme",
     "license": [
