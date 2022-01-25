@@ -19,8 +19,8 @@
     <img src="<?= $block->escapeUrl($block->getLogoSrc()) ?>"
          itemprop="logo"
          alt="<?= $block->escapeHtmlAttr($block->getLogoAlt(), false) ?>"
-            <?= $block->getLogoWidth() ? 'width="' . $block->escapeHtmlAttr($block->getLogoWidth()) . '"' : '' ?>
-            <?= $block->getLogoHeight() ? 'height="' . $block->escapeHtmlAttr($block->getLogoHeight()) . '"' : '' ?>
+         width="110"
+         height="110"
     />
     <meta itemprop="name" content="<?= $block->escapeHtmlAttr($block->getLogoAlt(), false) ?>" />
 </a>
