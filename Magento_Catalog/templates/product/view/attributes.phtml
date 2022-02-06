@@ -15,8 +15,10 @@
 <?php
     $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
     $_product = $block->getProduct();
+    $_additional = $block->getAdditionalData() ?? [];
+    $weight = $_product->getData('weight') ?? 0;
 ?>
-<?php if ($_additional = $block->getAdditionalData()) :?>
+<?php if ($_additional || $weight >= 0.05) :?>
     <div class="additional-attributes-wrapper table-wrapper">
         <table class="data table additional-attributes" id="product-attribute-specs-table">
             <caption class="table-caption"><?= $block->escapeHtml(__('More Information')) ?></caption>
@@ -30,7 +32,16 @@
                     <?php endif;?>
                     </td>
                 </tr>
-            <?php endforeach; ?>
+            <?php endforeach; if ($weight >= 0.05) :?>
+                <tr>
+                    <th class="col label" scope="row">Fraktvikt</th>
+                    <td class="col data" data-th="Fraktvikt" itemprop="weight" itemscope itemtype="http://schema.org/QuantitativeValue"><?=
+                            number_format($weight, 1, ',', ' ') ?> <span itemprop="unitText">kg</span>
+                        <meta itemprop="value" content="<?= (float)$weight ?>" />
+                        <meta itemprop="unitCode" content="KGM" />
+                    </td>
+                </tr>
+            <?php endif;?>
             </tbody>
         </table>
     </div>
