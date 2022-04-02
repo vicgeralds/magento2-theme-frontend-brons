@@ -41,11 +41,21 @@ $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
                 <div class="product-item-info" data-container="product-<?= /* @noEscape */ $viewMode ?>">
                     <?php
                     $productImage = $block->getImage($_product, $imageDisplayArea);
+                    $productName = $_helper->productAttribute($_product, $_product->getName(), 'name');
+                    if ($_product->getData('kruka_hojd')) {
+                        $splitDiam = explode(' diam=', $productName);
+                        $productName = explode(' h=', $productName)[0];
+                        if (count($splitDiam) > 1) {
+                            $productName .= ' ⌀' . $splitDiam[1];
+                        }
+                    } else {
+                        $productName = str_replace(' h=', ' höjd ', $productName);
+                    }
                     ?>
                     <a href="<?= $block->escapeUrl($_product->getProductUrl()) ?>">
                         <?= $productImage->toHtml() ?>
                         <strong class="product name product-item-name">
-                            <?= /* @noEscape */ $_helper->productAttribute($_product, $_product->getName(), 'name') ?>
+                            <?= /* @noEscape */ $productName ?>
                         </strong>
                     </a>
                     <div class="product details product-item-details">
