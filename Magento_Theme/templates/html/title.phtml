@@ -15,7 +15,7 @@ if (trim($block->getPageHeading())) {
     if (count($splitHeading) > 1) {
         $productSize = ' <span class="product-size">'
             . 'höjd '
-            . str_replace(' diam=', ' ⌀', $block->escapeHtml($splitHeading[1]))
+            . str_replace(' diam=', ' Ø', $block->escapeHtml($splitHeading[1]))
             . '</span>';
     }
     $titleHtml = '<span class="base" data-ui-id="page-title-wrapper" '
