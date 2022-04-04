@@ -46,7 +46,7 @@ $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
                         $splitDiam = explode(' diam=', $productName);
                         $productName = explode(' h=', $productName)[0];
                         if (count($splitDiam) > 1) {
-                            $productName .= ' ⌀' . $splitDiam[1];
+                            $productName .= ' Ø' . $splitDiam[1];
                         }
                     } else {
                         $productName = str_replace(' h=', ' höjd ', $productName);
