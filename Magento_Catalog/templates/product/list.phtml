@@ -49,6 +49,11 @@ $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
                         </strong>
                     </a>
                     <div class="product details product-item-details">
+                        <?php if ($_product->getData('kruka_hojd')) :?>
+                            <div class="product-item-attribute">
+                                <?= __("Height") . ': ' .  $_product->getAttributeText('kruka_hojd') ?>
+                            </div>
+                        <?php endif; ?>
                         <?= /* @noEscape */ $block->getProductPrice($_product) ?>
                         <?php if ($_product->isAvailable()) :?>
                             <?= $block->getProductDetailsHtml($_product) ?>

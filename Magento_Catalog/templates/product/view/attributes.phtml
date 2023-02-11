@@ -1,0 +1,67 @@
+<?php
+/**
+ * Copyright © Magento, Inc. All rights reserved.
+ * See COPYING.txt for license details.
+ */
+
+// phpcs:disable Magento2.Templates.ThisInTemplate.FoundThis
+
+/**
+ * Product additional attributes template
+ *
+ * @var $block \Magento\Catalog\Block\Product\View\Attributes
+ */
+?>
+<?php
+    $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
+    $_product = $block->getProduct();
+?>
+    <div class="additional-attributes-wrapper table-wrapper">
+        <table class="data table additional-attributes" id="product-attribute-specs-table">
+            <caption class="table-caption"><?= $block->escapeHtml(__('More Information')) ?></caption>
+            <tbody>
+<?php if ($_additional = $block->getAdditionalData()) :?>
+            <?php foreach ($_additional as $_data) :?>
+                <tr>
+                    <th class="col label" scope="row"><?= $block->escapeHtml($_data['label']) ?></th>
+		    <td class="col data" data-th="<?= $block->escapeHtmlAttr($_data['label']) ?>"><?= /* @noEscape */ $_helper->productAttribute($_product, $_data['value'], $_data['code']) ?>
+
+    <?php if ($_data['code'] === 'kruka_hojd') :?>
+    <meta itemprop="height" content="<?= str_replace(",", ".", $_data['value']) ?>">
+    <?php endif; ?>
+</td>
+                </tr>
+            <?php endforeach; ?>
+<?php endif;
+
+$weight = max($_product->getData('weight') ?? 0, 0.0001);
+?>
+                <tr>
+                    <th class="col label" scope="row">Fraktvikt</th>
+		    <td class="col data" data-th="Fraktvikt" itemprop="weight" itemscope itemtype="http://schema.org/QuantitativeValue"><?=
+number_format($weight, 1, ",", " ") ?> <span itemprop="unitText">kg</span>
+    <meta itemprop="value" content="<?= $weight ?>">
+    <meta itemprop="unitCode" content="KGM">
+				</td>
+		</tr>
+            </tbody>
+        </table>
+    </div>
+<?php
+/*
+	if ($_product->getCategory()) {
+		echo "Has category!";
+	} else {
+		echo "Does not have category :(";
+		if ($_product->getCategoryIds()) {
+			echo " ... but does have category ids!";
+		}
+	}
+foreach ($_product->getCategoryIds() as $categoryId) {
+	 $_product->setData('category_id', $categoryId);
+}
+	$category = $_product->getCategory();
+	echo  $category->getName();
+	echo  '<div>' .$category->getUrl() . '</div>';
+ */
+?>
