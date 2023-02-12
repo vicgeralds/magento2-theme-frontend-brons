@@ -11,7 +11,7 @@
                     ), as: 'item' }">
                 <each args="$parent.getRegion($parent.getItemRenderer(item.product_type))"
                       render="{ name: getTemplate(), data: item }"
-                />
+                ></each>
             </ol>
         </div>
     </if>
@@ -19,22 +19,22 @@
     <ifnot args="summaryCount() || cart.items.getLength()">
         <h3 class="subtitle empty"
            translate="'You have no items in your shopping cart.'"
-        />
-        <p class="minicart empty text" text="cart().cart_empty_message"/>
+        ></h3>
+        <p class="minicart empty text" text="cart().cart_empty_message"></p>
     </ifnot>
 
     <div class="actions">
         <if args="summaryCount() || cart.items.getLength()">
-            <each args="getRegion('subtotalContainer')" render=""/>
-            <each args="getRegion('extraInfo')" render=""/>
+            <each args="getRegion('subtotalContainer')" render=""></each>
+            <each args="getRegion('extraInfo')" render=""></each>
             <a class="action primary checkout" ontouchstart=""
                 data-bind="attr: {href: checkoutUrl}, css: {disabled: !summaryCount()}"
                 translate="'Proceed to Checkout'"
-            />
+            ></a>
         </if>
         <if args="location.pathname.indexOf('checkout/') === -1 || cart.items.getLength() === 0">
             <button class="action close" ontouchstart=""
                 translate="'Continue Shopping'"
-            />
+            ></button>
         </if>
     </div>
