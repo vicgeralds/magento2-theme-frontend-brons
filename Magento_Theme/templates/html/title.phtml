@@ -10,10 +10,19 @@
 $cssClass = $block->getCssClass() ? ' ' . $block->getCssClass() : '';
 $titleHtml = '';
 if (trim($block->getPageHeading())) {
+    $splitHeading = explode(' h=', $block->getPageHeading());
+    $productSize = '';
+    if (count($splitHeading) > 1) {
+        $productSize = ' <span class="product-size">'
+            . 'höjd '
+            . str_replace(' diam=', ' Ø', $block->escapeHtml($splitHeading[1]))
+            . '</span>';
+    }
     $titleHtml = '<span class="base" data-ui-id="page-title-wrapper" '
         . $block->getAddBaseAttribute()
         . '>'
-        . str_replace('/', '/<wbr>', $block->escapeHtml($block->getPageHeading()))
+        . str_replace('/', '/<wbr>', $block->escapeHtml($splitHeading[0]))
+        . $productSize
         . '</span>';
 }
 ?>

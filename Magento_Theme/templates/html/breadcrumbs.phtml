@@ -15,7 +15,7 @@
                     <?= $block->escapeHtml($crumbInfo['label']) ?>
                 </a>
             <?php elseif ($crumbInfo['last']) : ?>
-                <strong><?= $block->escapeHtml($crumbInfo['label']) ?></strong>
+                <strong><?= $block->escapeHtml(explode(' h=', $crumbInfo['label'])[0]) ?></strong>
             <?php else : ?>
                 <?= $block->escapeHtml($crumbInfo['label']) ?>
             <?php endif; ?>
