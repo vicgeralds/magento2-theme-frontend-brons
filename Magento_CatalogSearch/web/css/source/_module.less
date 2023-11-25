@@ -60,18 +60,23 @@
             box-sizing: border-box;
             height: ~"calc(28vmin + 22px)";
             max-height: 132px;
-            transition: background-color 0.3s;
+            transition: opacity 0.3s, top 0s 0.3s;
+            opacity: 0;
             background: transparent;
             z-index: 15;
+            pointer-events: none;
 
             &:focus-within {
                 top: 0;
                 background: rgba(116, 79, 35, 0.31);
+                transition: background-color 0.3s;
+                opacity: 1;
             }
         }
 
         input {
             margin: 15px 0;
+            pointer-events: auto;
 
             &::placeholder {
                 color: #a3a3a3;
@@ -92,6 +97,7 @@
         overflow: hidden;
         position: absolute;
         z-index: 3;
+        pointer-events: auto;
 
         ul {
             .lib-list-reset-styles();
@@ -147,8 +153,6 @@
         padding-left: 15px;
         position: relative;
         width: 250px;
-        height: auto;
-        z-index: 4;
 
         .label {
             &:extend(.abs-visually-hidden-desktop all);
@@ -157,6 +161,9 @@
         .control {
             position: static;
             padding: 0;
+            height: auto;
+            opacity: 1;
+
             &:focus-within {
                 background: transparent;
             }
