@@ -51,6 +51,8 @@ define([
             });
             $('[data-block="minicart"]').on('contentLoading', function () {
                 addToCartCalls++;
+            }).on('click', function (e) {
+                e.preventDefault()
             });
 
             var showcart = '#showcart';
@@ -73,8 +75,8 @@ define([
 
                     if (window.location.hash === showcart) {
                         var history = window.history;
-                        if (history && history.pushState) {
-                            history.pushState(null, document.title, location.href.split('#')[0]);
+                        if (history && history.replaceState) {
+                            history.replaceState(null, '', location.href.split('#')[0]);
                         }
                     }
 
