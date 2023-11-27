@@ -7,15 +7,21 @@
  */
 ?>
 <?php if ($block->getTotals()):
-    $trTotalsTax = '<tr class="totals-tax">';
-    $totalsParts = explode($trTotalsTax, $block->renderTotals());
-
-    echo $totalsParts[0];
+    $tax = '';
+    foreach ($this->getTotals() as $total) {
+        if ($total->getArea() == 'footer') {
+            continue;
+        }
+        if ($total->getCode() == 'tax') {
+            $tax = $block->renderTotal($total);
+        } else {
+            echo $block->renderTotal($total);
+        }
+    }
     echo str_replace(
         '</th>',
         ' ' . $block->escapeHtml(__('Incl. Tax')) . '</th>',
         $block->renderTotals('footer')
     ); 
-    echo $trTotalsTax;
-    echo str_replace('Moms', 'varav moms', $totalsParts[1]);
+    echo str_replace('Moms', 'varav moms', $tax);
 endif; ?>
