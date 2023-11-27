@@ -16,7 +16,8 @@
     $_helper = $this->helper(Magento\Catalog\Helper\Output::class);
     $_product = $block->getProduct();
     $_additional = $block->getAdditionalData() ?? [];
-    $weight = $_product->getData('weight') ?? 0;
+    //$weight = $_product->getData('weight') ?? 0;
+    $weight = 0;
 ?>
 <?php if ($_additional || $weight >= 0.05) :?>
     <div class="additional-attributes-wrapper table-wrapper">
